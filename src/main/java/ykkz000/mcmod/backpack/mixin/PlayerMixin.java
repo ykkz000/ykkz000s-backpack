@@ -24,7 +24,7 @@ import ykkz000.mcmod.backpack.world.entity.player.BackpackPlayer;
 import ykkz000.mcmod.backpack.world.inventory.BackpackContainer;
 
 @Mixin(Player.class)
-public class PlayerMixin implements BackpackPlayer {
+public abstract class PlayerMixin implements BackpackPlayer {
     @Unique
     private BackpackContainer backpackInventory = new BackpackContainer();
 

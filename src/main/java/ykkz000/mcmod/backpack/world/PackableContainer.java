@@ -9,19 +9,17 @@
  * THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package ykkz000.mcmod.backpack.mixin;
+package ykkz000.mcmod.backpack.world;
 
-import net.minecraft.server.level.ServerPlayer;
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import ykkz000.mcmod.backpack.world.entity.player.BackpackPlayer;
-
-@Mixin(ServerPlayer.class)
-public abstract class ServerPlayerMixin {
-    @Inject(method = "restoreFrom(Lnet/minecraft/server/level/ServerPlayer;Z)V", at = @At("RETURN"))
-    private void restoreFrom(ServerPlayer oldPlayer, boolean restoreAll, CallbackInfo ci) {
-        ((BackpackPlayer) this).ykkz000_sBackpack$setBackpackInventory(oldPlayer.ykkz000_sBackpack$getBackpackInventory());
+/**
+ * This interface is for mixin interface injection so that {@link net.minecraft.world.SimpleContainer} can have a pack method.
+ *
+ * @author ykkz000
+ * @apiNote This interface injection can be used in other mods.
+ * @see ykkz000.mcmod.backpack.mixin.SimpleContainerMixin
+ */
+public interface PackableContainer {
+    default void ykkz000_sBackpack$pack() {
+        throw new UnsupportedOperationException("This default implementation is for mixin interface injection and must be overridden.");
     }
 }

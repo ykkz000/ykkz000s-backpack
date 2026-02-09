@@ -30,6 +30,10 @@ public class Payloads {
                 new SimpleMenuProvider((containerId, inventory, _) -> ChestMenu.sixRows(containerId, inventory, player.ykkz000_sBackpack$getBackpackInventory()), BackpackContainer.CONTAINER_TITLE)
         );
     });
+    public static final CustomPacketPayload.TypeAndCodec<? super RegistryFriendlyByteBuf, ServerboundPackBackpackPayload> PACK_BACKPACK = registerServerbound("pack_backpack", ServerboundPackBackpackPayload.CODEC, (_, context) -> {
+        ServerPlayer player = context.player();
+        player.ykkz000_sBackpack$getBackpackInventory().ykkz000_sBackpack$pack();
+    });
 
     public static void bootstrap() {
     }

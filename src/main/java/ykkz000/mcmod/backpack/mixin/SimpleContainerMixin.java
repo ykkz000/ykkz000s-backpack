@@ -11,17 +11,38 @@
 
 package ykkz000.mcmod.backpack.mixin;
 
-import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.item.ItemStack;
+import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import ykkz000.mcmod.backpack.world.entity.player.BackpackPlayer;
+import org.spongepowered.asm.mixin.Shadow;
+import ykkz000.mcmod.backpack.world.PackableContainer;
 
-@Mixin(ServerPlayer.class)
-public abstract class ServerPlayerMixin {
-    @Inject(method = "restoreFrom(Lnet/minecraft/server/level/ServerPlayer;Z)V", at = @At("RETURN"))
-    private void restoreFrom(ServerPlayer oldPlayer, boolean restoreAll, CallbackInfo ci) {
-        ((BackpackPlayer) this).ykkz000_sBackpack$setBackpackInventory(oldPlayer.ykkz000_sBackpack$getBackpackInventory());
+@Mixin(SimpleContainer.class)
+public abstract class SimpleContainerMixin implements PackableContainer {
+    @Final
+    @Shadow
+    private int size;
+
+    @Shadow
+    protected abstract void moveItemsBetweenStacks(final ItemStack sourceStack, final ItemStack targetStack);
+
+    @Shadow
+    public abstract ItemStack getItem(final int slot);
+
+    @Override
+    public void ykkz000_sBackpack$pack() {
+        for (int i = 1; i < this.size; i++) {
+            ItemStack sourceStack = this.getItem(i);
+            for (int j = 0; j < i; j++) {
+                ItemStack targetStack = this.getItem(j);
+                if (targetStack.isEmpty() || ItemStack.isSameItemSameComponents(targetStack, sourceStack)) {
+                    this.moveItemsBetweenStacks(sourceStack, targetStack);
+                    if (sourceStack.isEmpty()) {
+                        break;
+                    }
+                }
+            }
+        }
     }
 }

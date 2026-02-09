@@ -1,5 +1,6 @@
 {
-  "category.ykkz000s-backpack.backpack": "ykkz000的背包",
+  "key.category.ykkz000s-backpack.backpack": "ykkz000的背包",
   "key.ykkz000s-backpack.open_backpack": "打开背包",
+  "key.ykkz000s-backpack.pack_backpack": "整理背包",
   "title.container.backpack": "背包"
 }

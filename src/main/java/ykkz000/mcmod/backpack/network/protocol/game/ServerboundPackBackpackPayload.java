@@ -9,19 +9,20 @@
  * THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package ykkz000.mcmod.backpack.mixin;
+package ykkz000.mcmod.backpack.network.protocol.game;
 
-import net.minecraft.server.level.ServerPlayer;
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import ykkz000.mcmod.backpack.world.entity.player.BackpackPlayer;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.resources.Identifier;
+import ykkz000.mcmod.backpack.Ykkz000sBackpack;
 
-@Mixin(ServerPlayer.class)
-public abstract class ServerPlayerMixin {
-    @Inject(method = "restoreFrom(Lnet/minecraft/server/level/ServerPlayer;Z)V", at = @At("RETURN"))
-    private void restoreFrom(ServerPlayer oldPlayer, boolean restoreAll, CallbackInfo ci) {
-        ((BackpackPlayer) this).ykkz000_sBackpack$setBackpackInventory(oldPlayer.ykkz000_sBackpack$getBackpackInventory());
+public record ServerboundPackBackpackPayload(int i) implements CustomPacketPayload {
+    public static final StreamCodec<RegistryFriendlyByteBuf, ServerboundPackBackpackPayload> CODEC = StreamCodec.composite(ByteBufCodecs.VAR_INT, ServerboundPackBackpackPayload::i, ServerboundPackBackpackPayload::new);
+
+    @Override
+    public Type<? extends CustomPacketPayload> type() {
+        return new Type<>(Identifier.fromNamespaceAndPath(Ykkz000sBackpack.MOD_ID, "pack_backpack"));
     }
 }

@@ -21,6 +21,7 @@ import net.minecraft.resources.Identifier;
 import org.lwjgl.glfw.GLFW;
 import ykkz000.mcmod.backpack.Ykkz000sBackpack;
 import ykkz000.mcmod.backpack.network.protocol.game.ServerboundOpenBackpackPayload;
+import ykkz000.mcmod.backpack.network.protocol.game.ServerboundPackBackpackPayload;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -32,6 +33,11 @@ public class KeyMappingHandlers {
     public static final KeyMapping KEY_MAPPING_OPEN_BACKPACK = register("open_backpack", GLFW.GLFW_KEY_B, KEY_MAPPING_CATEGORY_BACKPACK, client-> {
         if (client.player != null) {
             ClientPlayNetworking.send(new ServerboundOpenBackpackPayload(0));
+        }
+    });
+    public static final KeyMapping KEY_MAPPING_PACK_BACKPACK = register("pack_backpack", GLFW.GLFW_KEY_C, KEY_MAPPING_CATEGORY_BACKPACK, client-> {
+        if (client.player != null) {
+            ClientPlayNetworking.send(new ServerboundPackBackpackPayload(0));
         }
     });
 
