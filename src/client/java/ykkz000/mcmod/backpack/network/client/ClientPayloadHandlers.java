@@ -9,19 +9,17 @@
  * THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package ykkz000.mcmod.backpack;
+package ykkz000.mcmod.backpack.network.client;
 
-import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import ykkz000.mcmod.backpack.keymapping.client.KeyMappingHandlers;
-import ykkz000.mcmod.backpack.network.client.ClientPayloadHandlers;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
+import ykkz000.mcmod.backpack.ClientComponents;
+import ykkz000.mcmod.backpack.network.protocol.game.Payloads;
 
 @Environment(EnvType.CLIENT)
-public class Ykkz000sBackpackClient implements ClientModInitializer {
-	@Override
-	public void onInitializeClient() {
-		KeyMappingHandlers.bootstrap();
-		ClientPayloadHandlers.bootstrap();
-	}
+public class ClientPayloadHandlers {
+    public static void bootstrap() {
+        ClientPlayNetworking.registerGlobalReceiver(Payloads.PACK_BACKPACK_RESULT.type(), ( payload, context)-> context.player().displayClientMessage(payload.success() ? ClientComponents.PACK_BACKPACK_RESULT_SUCCESS : ClientComponents.PACK_BACKPACK_RESULT_FAILURE, false));
+    }
 }

@@ -12,6 +12,8 @@
 package ykkz000.mcmod.backpack.keymapping.client;
 
 import com.mojang.blaze3d.platform.InputConstants;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keymapping.v1.KeyMappingHelper;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
@@ -27,6 +29,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Consumer;
 
+@Environment(EnvType.CLIENT)
 public class KeyMappingHandlers {
     private static final Map<KeyMapping, Consumer<Minecraft>> handlers = new HashMap<>();
     public static final KeyMapping.Category KEY_MAPPING_CATEGORY_BACKPACK = KeyMapping.Category.register(Identifier.fromNamespaceAndPath(Ykkz000sBackpack.MOD_ID, "backpack"));

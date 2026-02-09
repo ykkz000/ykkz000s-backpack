@@ -11,17 +11,8 @@
 
 package ykkz000.mcmod.backpack;
 
-import net.fabricmc.api.ClientModInitializer;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
-import ykkz000.mcmod.backpack.keymapping.client.KeyMappingHandlers;
-import ykkz000.mcmod.backpack.network.client.ClientPayloadHandlers;
+import net.minecraft.network.chat.Component;
 
-@Environment(EnvType.CLIENT)
-public class Ykkz000sBackpackClient implements ClientModInitializer {
-	@Override
-	public void onInitializeClient() {
-		KeyMappingHandlers.bootstrap();
-		ClientPayloadHandlers.bootstrap();
-	}
+public final class Components {
+    public static final Component TITLE_CONTAINER_BACKPACK = Component.translatable("title.container.backpack");
 }

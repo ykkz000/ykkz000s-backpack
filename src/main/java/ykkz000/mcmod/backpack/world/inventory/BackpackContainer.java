@@ -11,7 +11,6 @@
 
 package ykkz000.mcmod.backpack.world.inventory;
 
-import net.minecraft.network.chat.Component;
 import net.minecraft.world.Container;
 import net.minecraft.world.ItemStackWithSlot;
 import net.minecraft.world.SimpleContainer;
@@ -37,7 +36,6 @@ public class BackpackContainer extends SimpleContainer {
      * @apiNote This constant integer is matched with the {@link ChestMenu#sixRows(int, Inventory, Container)}. Change this constant means you should overwrite the related code in {@link Payloads}.
      */
     public static final int SIZE = 54;
-    public static final Component CONTAINER_TITLE = Component.translatable("title.container.backpack");
     @Nullable
     private ContainerUser containerUser;
 

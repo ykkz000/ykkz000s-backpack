@@ -9,19 +9,17 @@
  * THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package ykkz000.mcmod.backpack;
+package ykkz000.mcmod.backpack.network.protocol.game;
 
-import net.fabricmc.api.ClientModInitializer;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
-import ykkz000.mcmod.backpack.keymapping.client.KeyMappingHandlers;
-import ykkz000.mcmod.backpack.network.client.ClientPayloadHandlers;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 
-@Environment(EnvType.CLIENT)
-public class Ykkz000sBackpackClient implements ClientModInitializer {
-	@Override
-	public void onInitializeClient() {
-		KeyMappingHandlers.bootstrap();
-		ClientPayloadHandlers.bootstrap();
-	}
+public record ClientboundPackBackpackResultPayload(boolean success) implements CustomPacketPayload {
+    public static final StreamCodec<RegistryFriendlyByteBuf, ClientboundPackBackpackResultPayload> CODEC = StreamCodec.composite(ByteBufCodecs.BOOL, ClientboundPackBackpackResultPayload::success, ClientboundPackBackpackResultPayload::new);
+    @Override
+    public Type<? extends CustomPacketPayload> type() {
+        return Payloads.PACK_BACKPACK_RESULT.type();
+    }
 }

@@ -2,5 +2,7 @@
   "key.category.ykkz000s-backpack.backpack": "ykkz000的背包",
   "key.ykkz000s-backpack.open_backpack": "打开背包",
   "key.ykkz000s-backpack.pack_backpack": "整理背包",
-  "title.container.backpack": "背包"
+  "title.container.backpack": "背包",
+  "message.ykkz000s-backpack.pack_backpack_result.success": "整理背包成功！",
+  "message.ykkz000s-backpack.pack_backpack_result.failure": "整理背包失败！"
 }

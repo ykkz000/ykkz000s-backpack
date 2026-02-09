@@ -2,5 +2,7 @@
   "key.category.ykkz000s-backpack.backpack": "Ykkz000's Backpack",
   "key.ykkz000s-backpack.open_backpack": "Open Backpack",
   "key.ykkz000s-backpack.pack_backpack": "Pack Backpack",
-  "title.container.backpack": "Backpack"
+  "title.container.backpack": "Backpack",
+  "message.ykkz000s-backpack.pack_backpack_result.success": "Packed backpack successfully!",
+  "message.ykkz000s-backpack.pack_backpack_result.failure": "Failed to pack backpack!"
 }
