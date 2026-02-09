@@ -1,0 +1,39 @@
+{
+	"schemaVersion": 1,
+	"id": "ykkz000s-backpack",
+	"version": "${version}",
+	"name": "ykkz000's Backpack",
+	"description": "This is an example description! Tell everyone what your mod is about!",
+	"authors": [
+		"ykkz000"
+	],
+	"contact": {
+		"homepage": "https://fabricmc.net/",
+		"sources": "https://github.com/ykkz000/fabric-example-mod"
+	},
+	"license": "CC0-1.0",
+	"icon": "assets/ykkz000s-backpack/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"ykkz000.mcmod.backpack.Ykkz000sBackpack"
+		],
+		"client": [
+			"ykkz000.mcmod.backpack.Ykkz000sBackpackClient"
+		]
+	},
+	"mixins": [
+		"ykkz000s-backpack.mixins.json",
+		{
+			"config": "ykkz000s-backpack.client.mixins.json",
+			"environment": "client"
+		}
+	],
+	"accessWidener": "ykkz000s-backpack.classtweaker",
+	"depends": {
+		"fabricloader": ">=0.18.4",
+		"minecraft": "~26.1-",
+		"java": ">=25",
+		"fabric-api": "*"
+	}
+}
