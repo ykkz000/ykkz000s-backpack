@@ -23,7 +23,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import org.jspecify.annotations.Nullable;
-import ykkz000.mcmod.backpack.handler.network.ServerPlayPayloadHandlers;
+import ykkz000.mcmod.backpack.network.protocol.game.Payloads;
 
 import java.util.Objects;
 
@@ -34,7 +34,7 @@ import java.util.Objects;
  */
 public class BackpackContainer extends SimpleContainer {
     /**
-     * @apiNote This constant integer is matched with the {@link ChestMenu#sixRows(int, Inventory, Container)}. Change this constant means you should overwrite the related code in {@link ServerPlayPayloadHandlers}.
+     * @apiNote This constant integer is matched with the {@link ChestMenu#sixRows(int, Inventory, Container)}. Change this constant means you should overwrite the related code in {@link Payloads}.
      */
     public static final int SIZE = 54;
     public static final Component CONTAINER_TITLE = Component.translatable("title.container.backpack");

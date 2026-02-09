@@ -12,20 +12,31 @@
 package ykkz000.mcmod.backpack.network.protocol.game;
 
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.Identifier;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.SimpleMenuProvider;
+import net.minecraft.world.inventory.ChestMenu;
 import ykkz000.mcmod.backpack.Ykkz000sBackpack;
+import ykkz000.mcmod.backpack.world.inventory.BackpackContainer;
 
 public class Payloads {
-    public static final CustomPacketPayload.TypeAndCodec<? super RegistryFriendlyByteBuf, ServerboundOpenBackpackPackerPayload> OPEN_BACKPACK = registerC2S("open_backpack", ServerboundOpenBackpackPackerPayload.CODEC);
+    public static final CustomPacketPayload.TypeAndCodec<? super RegistryFriendlyByteBuf, ServerboundOpenBackpackPayload> OPEN_BACKPACK = registerServerbound("open_backpack", ServerboundOpenBackpackPayload.CODEC, (_, context) -> {
+        ServerPlayer player = context.player();
+        player.openMenu(
+                new SimpleMenuProvider((containerId, inventory, _) -> ChestMenu.sixRows(containerId, inventory, player.ykkz000_sBackpack$getBackpackInventory()), BackpackContainer.CONTAINER_TITLE)
+        );
+    });
 
     public static void bootstrap() {
     }
 
-    private static <T extends CustomPacketPayload> CustomPacketPayload.TypeAndCodec<? super RegistryFriendlyByteBuf, T> registerC2S(final String name, final StreamCodec<RegistryFriendlyByteBuf, T> codec) {
-        CustomPacketPayload.Type<T> type = new CustomPacketPayload.Type<>(Identifier.fromNamespaceAndPath(Ykkz000sBackpack.MOD_ID, name));
-        return PayloadTypeRegistry.serverboundPlay().register(type, codec);
+    private static <T extends CustomPacketPayload> CustomPacketPayload.TypeAndCodec<? super RegistryFriendlyByteBuf, T> registerServerbound(final String name, final StreamCodec<RegistryFriendlyByteBuf, T> codec, final  ServerPlayNetworking.PlayPayloadHandler<T> handler) {
+        CustomPacketPayload.TypeAndCodec<? super RegistryFriendlyByteBuf, T> typeAndCodec = PayloadTypeRegistry.serverboundPlay().register(new CustomPacketPayload.Type<>(Identifier.fromNamespaceAndPath(Ykkz000sBackpack.MOD_ID, name)), codec);
+        ServerPlayNetworking.registerGlobalReceiver(typeAndCodec.type(), handler);
+        return typeAndCodec;
     }
 }

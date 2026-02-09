@@ -12,11 +12,11 @@
 package ykkz000.mcmod.backpack;
 
 import net.fabricmc.api.ClientModInitializer;
-import ykkz000.mcmod.backpack.handler.client.KeyboardHandlers;
+import ykkz000.mcmod.backpack.keymapping.client.KeyMappingHandlers;
 
 public class Ykkz000sBackpackClient implements ClientModInitializer {
 	@Override
 	public void onInitializeClient() {
-		KeyboardHandlers.bootstrap();
+		KeyMappingHandlers.bootstrap();
 	}
 }

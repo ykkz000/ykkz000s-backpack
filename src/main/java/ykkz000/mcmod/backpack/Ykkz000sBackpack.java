@@ -13,7 +13,6 @@ package ykkz000.mcmod.backpack;
 
 import net.fabricmc.api.ModInitializer;
 
-import ykkz000.mcmod.backpack.handler.network.ServerPlayPayloadHandlers;
 import ykkz000.mcmod.backpack.network.protocol.game.Payloads;
 
 public class Ykkz000sBackpack implements ModInitializer {
@@ -22,6 +21,5 @@ public class Ykkz000sBackpack implements ModInitializer {
     @Override
     public void onInitialize() {
         Payloads.bootstrap();
-        ServerPlayPayloadHandlers.bootstrap();
     }
 }
