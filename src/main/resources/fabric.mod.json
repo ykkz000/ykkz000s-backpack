@@ -3,15 +3,15 @@
 	"id": "ykkz000s-backpack",
 	"version": "${version}",
 	"name": "ykkz000's Backpack",
-	"description": "This is an example description! Tell everyone what your mod is about!",
+	"description": "Add backpack.",
 	"authors": [
 		"ykkz000"
 	],
 	"contact": {
 		"homepage": "https://fabricmc.net/",
-		"sources": "https://github.com/ykkz000/fabric-example-mod"
+		"sources": "https://github.com/ykkz000/ykkz000s-backpack"
 	},
-	"license": "CC0-1.0",
+	"license": "MIT",
 	"icon": "assets/ykkz000s-backpack/icon.png",
 	"environment": "*",
 	"entrypoints": {
