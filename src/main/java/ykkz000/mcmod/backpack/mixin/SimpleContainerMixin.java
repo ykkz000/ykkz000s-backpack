@@ -19,13 +19,21 @@ public abstract class SimpleContainerMixin implements PackableContainer {
     @Shadow
     public abstract ItemStack getItem(final int slot);
 
+    @Shadow
+    public abstract void setItem(int slot, ItemStack itemStack);
+
     @Override
     public void ykkz000_sBackpack$pack() {
         for (int i = 1; i < this.size; i++) {
             ItemStack sourceStack = this.getItem(i);
+            if (sourceStack.isEmpty()) {
+                continue;
+            }
             for (int j = 0; j < i; j++) {
                 ItemStack targetStack = this.getItem(j);
-                if (targetStack.isEmpty() || ItemStack.isSameItemSameComponents(targetStack, sourceStack)) {
+                if (targetStack.isEmpty()) {
+                    this.setItem(j, sourceStack.copyAndClear());
+                } else if (ItemStack.isSameItemSameComponents(targetStack, sourceStack)) {
                     this.moveItemsBetweenStacks(sourceStack, targetStack);
                     if (sourceStack.isEmpty()) {
                         break;
