@@ -9,6 +9,6 @@ import ykkz000.mcmod.backpack.network.protocol.game.Payloads;
 @Environment(EnvType.CLIENT)
 public class ClientPayloadHandlers {
     public static void bootstrap() {
-        ClientPlayNetworking.registerGlobalReceiver(Payloads.PACK_BACKPACK_RESULT.type(), ( payload, context)-> context.player().displayClientMessage(payload.success() ? ClientComponents.PACK_BACKPACK_RESULT_SUCCESS : ClientComponents.PACK_BACKPACK_RESULT_FAILURE, false));
+        ClientPlayNetworking.registerGlobalReceiver(Payloads.PACK_BACKPACK_RESULT.type(), ( payload, context)-> context.player().sendOverlayMessage(payload.success() ? ClientComponents.PACK_BACKPACK_RESULT_SUCCESS : ClientComponents.PACK_BACKPACK_RESULT_FAILURE));
     }
 }
